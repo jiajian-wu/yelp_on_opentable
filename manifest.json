@@ -6,6 +6,7 @@
     "activeTab",
     "declarativeContent",
     "storage",
+    "tabs",
     "*://*.opentable.com/"
   ],
   "background": {
@@ -14,6 +15,16 @@
     ],
     "persistent": false
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.opentable.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
