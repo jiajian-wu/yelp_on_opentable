@@ -1,0 +1,31 @@
+{
+  "name": "Yelp on OpenTable",
+  "version": "1.0",
+  "description": "Show Yelp reviews on OpenTable",
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage",
+    "*://*.opentable.com/"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "stars/yelp_icon.png"
+    }
+  },
+  "icons": {
+    "16": "stars/yelp_icon.png",
+    "32": "stars/yelp_icon.png",
+    "48": "stars/yelp_icon.png",
+    "128": "stars/yelp_icon.png"
+  },
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+}
