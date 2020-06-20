@@ -21,6 +21,7 @@
         "*://www.opentable.com/*"
       ],
       "js": [
+        "browser-polyfill.js",
         "content.js"
       ]
     }

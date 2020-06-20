@@ -10,17 +10,23 @@ YELP_API = 'JzSySFAoBGFSUnr6_-79wCKi8qWay7807d0E5n12a7Y-qeo0gBf8153QKjbs7OnOQ-TT
 @app.route('/', methods=['POST'])
 def get_review():
     # example: '40.7529000', '-73.9835000', 'Koi - New York Restaurant - New York, NY | OpenTable', '(212) 921-3330'
-    latitude = '40.7529000'
-    longitude = '-73.9835000'
-    name = 'Koi - New York Restaurant - New York, NY | OpenTable'
-    phone = '(212) 921-3330'
+    r = request.get_json()
+    print("type retrieved from extension is ", type(r))
+    print("object retrieved from extension is ", r)
+    for i in r:
+        print(i)
+
+    latitude = r[0]
+    longitude = r[1]
+    name = r[2]
+    phone = r[3]
 
     unique_id = get_business(latitude, longitude, name, phone)
     url = 'https://api.yelp.com/v3/businesses/' + unique_id + '/reviews'
     headers = {'Authorization': f"Bearer {YELP_API}"}
     response = requests.get(url, headers=headers)
     response = response.json()['reviews']
-    print(response)
+    # print(response)
     # response_str = '\n'
     # for review in response:
     #     response_str +=  str(review)
