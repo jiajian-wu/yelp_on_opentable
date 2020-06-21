@@ -40,6 +40,7 @@ function fetchStarImage(rating) {
         console.log(property)
         console.log(response)
         //response is an json "object"
+
         writeHeader(response)
 
         let el = document.createElement("div")
@@ -77,8 +78,14 @@ function fetchStarImage(rating) {
 function writeHeader(response) {
     // final['photos'], final['name'], final['rating'], final['review_count'], final['price'], final['categories']
     let el = document.createElement("div")
-    el.innerHTML = "<h1>" + response['name'] +"</h1>"
+    el.innerHTML = "<h1>" + response['name'] + "</h1>"
 
+    let url = document.createElement("a")
+    url.setAttribute("href", response['url'])
+    url.setAttribute('target', "_blank")
+    url.textContent = "Go to the Yelp page here"
+    el.appendChild(url)
+    el.innerHTML += "<hr />"
 
     let image_name = fetchStarImage(response["rating"])
     let image_el = document.createElement("img")
@@ -87,18 +94,39 @@ function writeHeader(response) {
     image_el.setAttribute('height', "20")
     el.appendChild(image_el)
 
-    el.innerHTML += "<span> " + response['review_count'] + " reviews <br/>" + "</span>"
-    el.innerHTML += "<span>" + response['price'] + " </span>"
-
-    el.innerHTML += "<span>"
-    for (let i = 0; i < response['categories'].length; i++) {
-        let comma = ", "
-        if (i === response['categories'].length  - 1) {
-            comma = ""
-        }
-        el.innerHTML += response['categories'][i]['title'] + comma
+    if ('review_count' in response) {
+        el.innerHTML += "<span> " + response['review_count'] + " reviews <br/>" + "</span>"
     }
-    el.innerHTML += "</span>"
+
+    if ('price' in response) {
+        el.innerHTML += "<span>" + response['price'] + " </span>"
+    }
+
+    if ('categories' in response) {
+        let categories = document.createElement("span")
+        categories.setAttribute("id", "categories")
+        for (let i = 0; i < response['categories'].length; i++) {
+            let comma = ", "
+            if (i === response['categories'].length - 1) {
+                comma = ""
+            }
+            categories.textContent += response['categories'][i]['title'] + comma
+        }
+        el.appendChild(categories)
+    }
+
+    el.innerHTML += "<hr />"
+
+    if ('photos' in response) {
+        for (let i = 0; i < response['photos'].length; i++) {
+            let photo = document.createElement("img")
+            photo.setAttribute('src', response['photos'][i])
+            photo.setAttribute('alt', "Sorry, the image failed to load")
+            photo.width = 250
+            photo.height = 250
+            el.appendChild(photo)
+        }
+    }
 
     let reference = document.getElementById("p1")
     reference.appendChild(el)

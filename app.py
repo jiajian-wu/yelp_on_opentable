@@ -34,14 +34,18 @@ def get_review():
     headers = {'Authorization': f"Bearer {YELP_API}"}
     detailed_info = requests.get(url, headers=headers)
     detailed_info = detailed_info.json()
-    final['photos'] = detailed_info['photos']
-    final['name'] = detailed_info['name']
-    final['rating'] = detailed_info['rating']
-    final['review_count'] = detailed_info['review_count']
-    final['price'] = detailed_info['price']
-    final['categories'] = detailed_info['categories']
+    try:
+        final['photos'] = detailed_info['photos']
+        final['name'] = detailed_info['name']
+        final['rating'] = detailed_info['rating']
+        final['review_count'] = detailed_info['review_count']
+        final['price'] = detailed_info['price']
+        final['categories'] = detailed_info['categories']
+        final['url'] = detailed_info['url']
+    except:
+        pass
     print(final.keys())
-    print(final['photos'], final['name'], final['rating'], final['review_count'], final['price'], final['categories'])
+    # print(final['photos'], final['name'], final['rating'], final['review_count'], final['price'], final['categories'])
     return jsonify(final)
 
 
