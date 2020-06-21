@@ -11,27 +11,38 @@ YELP_API = 'JzSySFAoBGFSUnr6_-79wCKi8qWay7807d0E5n12a7Y-qeo0gBf8153QKjbs7OnOQ-TT
 def get_review():
     # example: '40.7529000', '-73.9835000', 'Koi - New York Restaurant - New York, NY | OpenTable', '(212) 921-3330'
     r = request.get_json()
-    print("type retrieved from extension is ", type(r))
-    print("object retrieved from extension is ", r)
-    for i in r:
-        print(i)
-
     latitude = r[0]
     longitude = r[1]
     name = r[2]
     phone = r[3]
 
+    # get the matching business by "get_business" function
     unique_id = get_business(latitude, longitude, name, phone)
+    print("the business ID is ", unique_id)
+
+    final = {}  # dict to hold all the info we need
+    # get reviews
     url = 'https://api.yelp.com/v3/businesses/' + unique_id + '/reviews'
     headers = {'Authorization': f"Bearer {YELP_API}"}
-    response = requests.get(url, headers=headers)
-    response = response.json()['reviews']
-    # print(response)
-    # response_str = '\n'
-    # for review in response:
-    #     response_str +=  str(review)
-    # print(response_str)
-    return jsonify(response)
+    review_response = requests.get(url, headers=headers)
+    review_response = review_response.json()
+    final['reviews'] = review_response['reviews']
+    print("the reviews are", final)
+
+    # get business details
+    url = 'https://api.yelp.com/v3/businesses/' + unique_id
+    headers = {'Authorization': f"Bearer {YELP_API}"}
+    detailed_info = requests.get(url, headers=headers)
+    detailed_info = detailed_info.json()
+    final['photos'] = detailed_info['photos']
+    final['name'] = detailed_info['name']
+    final['rating'] = detailed_info['rating']
+    final['review_count'] = detailed_info['review_count']
+    final['price'] = detailed_info['price']
+    final['categories'] = detailed_info['categories']
+    print(final.keys())
+    print(final['photos'], final['name'], final['rating'], final['review_count'], final['price'], final['categories'])
+    return jsonify(final)
 
 
 def get_business(latitude, longitude, name, phone):

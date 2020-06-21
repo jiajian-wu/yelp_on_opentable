@@ -40,35 +40,69 @@ function fetchStarImage(rating) {
         console.log(property)
         console.log(response)
         //response is an json "object"
-        let el = document.createElement("div")
-        for (let i = 0; i < response.length; i++) {
+        writeHeader(response)
 
-            let link = response[i].url
+        let el = document.createElement("div")
+        el.setAttribute('id', 'div1')
+        for (let i = 0; i < response["reviews"].length; i++) {
+
+            let link = response["reviews"][i].url
             let l = document.createElement("a")
             l.setAttribute('href', link)
             l.setAttribute('target', "_blank")
             l.textContent = "Go to Yelp for detailed review"
 
-            el.innerHTML += "User Name: " + response[i].user.name + "<br />" + "Review Rating: "
+            el.innerHTML += "User Name: " + response["reviews"][i].user.name + "<br />" + "Review Rating: "
 
-            let image_name = fetchStarImage(response[i].rating)
+            let image_name = fetchStarImage(response["reviews"][i].rating)
             let image_el = document.createElement("img")
             image_el.setAttribute('src', 'stars/' + image_name)
             el.appendChild(image_el)
 
-            el.innerHTML += '<br />' + '<em>' + response[i].text + '</em>' + '<br />'
+            el.innerHTML += '<br />' + '<em>' + response["reviews"][i].text + '</em>' + '<br />'
             el.appendChild(l)
 
             el.innerHTML += '<hr />'
         } //end of for loop
 
 
-        let reference = document.getElementById('p1')
+        let reference = document.getElementById('p2')
         reference.appendChild(el)
     });
 
 
 })();
+
+
+function writeHeader(response) {
+    // final['photos'], final['name'], final['rating'], final['review_count'], final['price'], final['categories']
+    let el = document.createElement("div")
+    el.innerHTML = "<h1>" + response['name'] +"</h1>"
+
+
+    let image_name = fetchStarImage(response["rating"])
+    let image_el = document.createElement("img")
+    image_el.setAttribute('src', 'stars/' + image_name)
+    image_el.setAttribute('width', "110")
+    image_el.setAttribute('height', "20")
+    el.appendChild(image_el)
+
+    el.innerHTML += "<span> " + response['review_count'] + " reviews <br/>" + "</span>"
+    el.innerHTML += "<span>" + response['price'] + " </span>"
+
+    el.innerHTML += "<span>"
+    for (let i = 0; i < response['categories'].length; i++) {
+        let comma = ", "
+        if (i === response['categories'].length  - 1) {
+            comma = ""
+        }
+        el.innerHTML += response['categories'][i]['title'] + comma
+    }
+    el.innerHTML += "</span>"
+
+    let reference = document.getElementById("p1")
+    reference.appendChild(el)
+}
 
 
 // $.ajax({
