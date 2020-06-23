@@ -44,14 +44,14 @@ function fetchStarImage(rating) {
         writeHeader(response)
 
         let el = document.createElement("div")
-        el.setAttribute('id', 'div1')
+        el.setAttribute('id', 'div2')
         for (let i = 0; i < response["reviews"].length; i++) {
 
             let link = response["reviews"][i].url
             let l = document.createElement("a")
             l.setAttribute('href', link)
             l.setAttribute('target', "_blank")
-            l.textContent = "Go to Yelp for detailed review"
+            l.textContent = "Go to Yelp for detailed review and more"
 
             el.innerHTML += "User Name: " + response["reviews"][i].user.name + "<br />" + "Review Rating: "
 
@@ -60,7 +60,7 @@ function fetchStarImage(rating) {
             image_el.setAttribute('src', 'stars/' + image_name)
             el.appendChild(image_el)
 
-            el.innerHTML += '<br />' + '<em>' + response["reviews"][i].text + '</em>' + '<br />'
+            el.innerHTML += '<br />' +'<br />' +'<em>' + response["reviews"][i].text + '</em>' + '<br />'
             el.appendChild(l)
 
             el.innerHTML += '<hr />'
@@ -69,6 +69,11 @@ function fetchStarImage(rating) {
 
         let reference = document.getElementById('p2')
         reference.appendChild(el)
+    }).fail(function (response){
+        let error = document.createElement("h3")
+        error.textContent = "Sorry, failed to fetch from Yelp!"
+        let p = document.getElementById('p1')
+        p.appendChild(error)
     });
 
 
@@ -78,11 +83,13 @@ function fetchStarImage(rating) {
 function writeHeader(response) {
     // final['photos'], final['name'], final['rating'], final['review_count'], final['price'], final['categories']
     let el = document.createElement("div")
+    el.setAttribute('id', 'div1')
     el.innerHTML = "<h1>" + response['name'] + "</h1>"
 
     let url = document.createElement("a")
     url.setAttribute("href", response['url'])
     url.setAttribute('target', "_blank")
+    url.setAttribute('id', "business_link")
     url.textContent = "Go to the Yelp page here"
     el.appendChild(url)
     el.innerHTML += "<hr />"
@@ -122,52 +129,18 @@ function writeHeader(response) {
             let photo = document.createElement("img")
             photo.setAttribute('src', response['photos'][i])
             photo.setAttribute('alt', "Sorry, the image failed to load")
-            photo.width = 250
-            photo.height = 250
+            photo.setAttribute('class', 'thumbnail')
+            photo.width = 260
+            photo.height = 260
             el.appendChild(photo)
         }
     }
+    el.innerHTML += "<hr />"
 
     let reference = document.getElementById("p1")
     reference.appendChild(el)
 }
 
 
-// $.ajax({
-//     //http://localhost:5000/
-//     //http://jiajianwu.pythonanywhere.com/
-//     url: "http://localhost:5000/",
-//     type: "POST",
-//     contentType: 'application/json',
-//     data: JSON.stringify(r),
-//     dataType: 'json'
-// }).done(function (response) {
-//     console.log(response)
-//     //response is an json "object"
-//     let el = document.createElement("div")
-//     for (let i = 0; i < response.length; i++) {
-//
-//         let link = response[i].url
-//         let l = document.createElement("a")
-//         l.setAttribute('href', link)
-//         l.setAttribute('target', "_blank")
-//         l.textContent = "Go to Yelp for detailed review"
-//
-//         el.innerHTML += "User Name: " + response[i].user.name + "<br />" + "Review Rating: "
-//
-//         let image_name = fetchStarImage(response[i].rating)
-//         let image_el = document.createElement("img")
-//         image_el.setAttribute('src', 'stars/' + image_name)
-//         el.appendChild(image_el)
-//
-//         el.innerHTML += '<br />' + '<em>' + response[i].text + '</em>' + '<br />'
-//         el.appendChild(l)
-//
-//         el.innerHTML += '<hr />'
-//     } //end of for loop
-//
-//
-//     let reference = document.getElementById('p1')
-//     reference.appendChild(el)
-// });
+
 

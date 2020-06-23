@@ -16,11 +16,12 @@ def get_review():
     name = r[2]
     phone = r[3]
 
+    final = {}  # dict to hold all the info we need
     # get the matching business by "get_business" function
     unique_id = get_business(latitude, longitude, name, phone)
-    print("the business ID is ", unique_id)
+    if unique_id is None:
+        return -1
 
-    final = {}  # dict to hold all the info we need
     # get reviews
     url = 'https://api.yelp.com/v3/businesses/' + unique_id + '/reviews'
     headers = {'Authorization': f"Bearer {YELP_API}"}
