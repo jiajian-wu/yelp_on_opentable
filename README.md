@@ -2,8 +2,8 @@
 This is an chrome extension to pull out **Yelp reviews** for the restaurant currently being viewed on **OpenTable**
 
 To download:  
-Yelp on OpenTable: https://chrome.google.com/webstore/detail/yelp-on-opentable/folanbjakkilmeophjlnhgckfdeaocmf
-Yelp on Uber Eats: https://chrome.google.com/webstore/detail/yelp-on-uber-eats/nmcejkcdnjfmahaldafoeeamjfckneed
+Yelp on OpenTable: https://chrome.google.com/webstore/detail/yelp-on-opentable/folanbjakkilmeophjlnhgckfdeaocmf   
+Yelp on Uber Eats: https://chrome.google.com/webstore/detail/yelp-on-uber-eats/nmcejkcdnjfmahaldafoeeamjfckneed   
 
 ## Python Flask Backend 
 **app.py**: A Flask script to find the reviews of the restaurant whose properties are passed from AJAX in *popup.js*. Hosted in *pythonanywhere.com*
