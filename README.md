@@ -1,5 +1,5 @@
 # Yelp on Uber Eats/OpenTable
-This is an chrome extension to pull out **Yelp reviews** for the restaurant currently being viewed on **Uber Eats / OpenTable**
+This is an chrome extension to pull out **Yelp reviews** for the restaurant currently being viewed on **Uber Eats/OpenTable**
 
 To download:  
 Yelp on OpenTable: https://chrome.google.com/webstore/detail/yelp-on-opentable/folanbjakkilmeophjlnhgckfdeaocmf   
