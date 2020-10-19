@@ -1,7 +1,7 @@
 # yelp_on_opentable
 This is an chrome extension to pull out **Yelp reviews** for the restaurant currently being viewed on **OpenTable**
 
-To download:
+To download:  
 Yelp on OpenTable: https://chrome.google.com/webstore/detail/yelp-on-opentable/folanbjakkilmeophjlnhgckfdeaocmf
 Yelp on Uber Eats: https://chrome.google.com/webstore/detail/yelp-on-uber-eats/nmcejkcdnjfmahaldafoeeamjfckneed
 
